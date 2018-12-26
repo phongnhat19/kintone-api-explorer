@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {CssBaseline, AppBar, Toolbar, IconButton, Typography} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import {CssBaseline, CircularProgress} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Menu from './common/Menu'
 
-import GetApp from './pages/RestAPI/Apps/GetApp'
-import GetRecord from './pages/RestAPI/Records/GetRecord';
+import RestAPI from './pages/RestAPI/RestAPITemplate'
+import Header from './common/header';
+
+import ConfigPage from './pages/Config/config'
+import LocalConfig from './services/LocalConfig';
+
+import APIInfoService from './services/RestAPI/APIInfo'
+
+let currentConfig = new LocalConfig()
 
 const drawerWidth = 240;
 const styles = (theme:any) => ({
@@ -32,49 +38,103 @@ const styles = (theme:any) => ({
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing.unit * 3,
+	},
+	progress: {
+		margin: theme.spacing.unit * 2,
 	}
 });
+
+let apiTree = {}
 
 class App extends React.Component<any, any> {
 	constructor(props: any) {
         super(props)
         this.state = {
-            mobileOpen: false
+			mobileOpen: false,
+			title: 'Kintone API Explorer',
+			loading: true
         }
 	}
-	handleDrawerToggle = () => {
+	handleDrawerToggle = ():void => {
         this.setState({
             mobileOpen: !this.state['mobileOpen']
         });
-    };
+	};
+	setHeaderTitle = (title: string):void => {
+		this.setState({
+			title: title
+		})
+	}
+	componentDidMount = async () => {
+		let apiList = await APIInfoService.getAPIList()
+		Object.keys(apiList.apis).forEach((key,id1)=>{
+			let levelArray = key.split('/')
+			let obj = {}
+			for (let index = levelArray.length-1; index >= 0; index--) {
+				if (index === levelArray.length-1) {
+					obj[levelArray[index]] = apiList.apis[key]
+				}
+				else if (index === 0) {
+					if (!apiTree[levelArray[index]]) {
+						apiTree[levelArray[index]] = obj
+					}
+					else {
+						apiTree[levelArray[index]][levelArray[index+1]] = obj[levelArray[index+1]]
+					}
+				}
+				else {
+					obj = {
+						[levelArray[index]]: obj
+					}
+				}
+			}
+		})
+		this.setState({
+			loading: false
+		})
+	}
+	renderRestAPIRoute = () => {
+		return(
+			<Switch>
+				<Route path="/get-app" exact={true} render={()=>{
+					return <RestAPI setHeaderTitle={this.setHeaderTitle}/>
+				}} />
+			</Switch>
+		)
+	}
 	public render() {
 		const { classes } = this.props;
+		if (currentConfig.isConfiged()) {
+			return <ConfigPage/>
+		}
+		if (this.state.loading) {
+			return(
+				<div style={
+					{
+						width:'100vw', 
+						height: '100vh', 
+						display: 'flex', 
+						alignItems: 'center', 
+						justifyContent: 
+						'center'
+					}
+				}>
+					<CircularProgress className={classes.progress} />
+				</div>
+			)
+		}
 		return (
 			<Router>
 				<div className={classes.root}>
 					<CssBaseline/>
-					<AppBar position="fixed" className={classes.appBar}>
-						<Toolbar>
-							<IconButton
-								color="inherit"
-								aria-label="Open drawer"
-								onClick={this.handleDrawerToggle}
-								className={classes.menuButton}
-							>
-							<MenuIcon />
-							</IconButton>
-							<Typography variant="h6" color="inherit" noWrap>
-								Responsive drawer
-							</Typography>
-						</Toolbar>
-					</AppBar>
-					<Menu mobileOpen={this.state['mobileOpen']} handleDrawerToggle={this.handleDrawerToggle}/>
+					<Header title={this.state.title} handleDrawerToggle={this.handleDrawerToggle}/>
+					<Menu mobileOpen={this.state['mobileOpen']} handleDrawerToggle={this.handleDrawerToggle} apiTree={apiTree}/>
 					<main className={classes.content}>
 						<div className={classes.toolbar} />
-						<Switch>
-							<Route path="/get-app" exact={true} component={GetApp} />
-							<Route path="/get-record" exact={true} component={GetRecord} />
-						</Switch>
+						{
+							this.renderRestAPIRoute()
+						}
+						
 					</main>
 				</div>
 			</Router>
