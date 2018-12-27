@@ -67,7 +67,7 @@ class App extends React.Component<any, any> {
 	}
 	componentDidMount = async () => {
 		let apiList = await APIInfoService.getAPIList()
-		Object.keys(apiList.apis).forEach((key,id1)=>{
+		apiList.apis && Object.keys(apiList.apis).forEach((key,id1)=>{
 			let levelArray = key.split('/')
 			let obj = {}
 			for (let index = levelArray.length-1; index >= 0; index--) {
@@ -97,7 +97,34 @@ class App extends React.Component<any, any> {
 		return(
 			<Switch>
 				<Route path="/get-app" exact={true} render={()=>{
-					return <RestAPI setHeaderTitle={this.setHeaderTitle}/>
+					return(
+						<RestAPI 
+							title="Get App" 
+							apiName='get-app' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/app/get.json'
+						/>
+					) 
+				}} />
+				<Route path="/get-record" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Record" 
+							apiName='get-record' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/record/get.json'
+						/>
+					)
+				}} />
+				<Route path="/get-space" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Space" 
+							apiName='get-space' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/space/get.json'
+						/>
+					)
 				}} />
 			</Switch>
 		)
