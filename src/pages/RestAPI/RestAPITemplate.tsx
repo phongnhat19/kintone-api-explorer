@@ -36,6 +36,9 @@ class RestAPITemplate extends React.Component<Props,any> {
     }
     componentDidUpdate() {
         if (document.title !== this.props.title) {
+            this.setState({
+                loading: true
+            })
             document.title = this.props.title
             this.props.setHeaderTitle(this.props.title)
             this.getSchema()
