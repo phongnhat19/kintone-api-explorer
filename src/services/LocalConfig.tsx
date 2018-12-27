@@ -53,6 +53,11 @@ class LocalConfig {
         return true
     }
 
+    public clearConfig(): boolean {
+        localStorage.removeItem('kintone-api-explorer-config')
+        return true
+    }
+
     public isConfiged():boolean {
         return !this.initiated
     }

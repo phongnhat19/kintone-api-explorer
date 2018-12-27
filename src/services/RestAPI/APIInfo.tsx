@@ -46,11 +46,7 @@ let APIInfo: APIInfoType = {
         let body = {
             domain: localConfig.domain,
             path: schemaURL,
-            method: 'GET',
-            proxy: {
-                "host": "dc-ty3-squid-1.cb.local",
-                "port": 3128
-            }
+            method: 'GET'
         }
         return axios.post(`${nodeProxy.url}/request`,body)
         .then((response)=>{
