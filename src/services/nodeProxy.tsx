@@ -1,4 +1,4 @@
 export default {
-    url: 'http://104.215.254.181'
+    url: 'http://kintone.southeastasia.cloudapp.azure.com/'
     //url: 'http://localhost:9999'
 }

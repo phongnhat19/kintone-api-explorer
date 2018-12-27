@@ -61,6 +61,11 @@ class Menu extends React.Component<any, any> {
                                     <ListItemText primary={'Get App'} />
                                 </ListItem>
                             </Link>
+                            <Link to="/get-apps" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get Apps'} />
+                                </ListItem>
+                            </Link>
                         </List>
                     </Collapse>
                 </List>
@@ -75,6 +80,11 @@ class Menu extends React.Component<any, any> {
                             <Link to="/get-record" className={classes['menuLink']}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemText primary={'Get Record'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/get-records" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get Records'} />
                                 </ListItem>
                             </Link>
                         </List>

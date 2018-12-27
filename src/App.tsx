@@ -106,6 +106,16 @@ class App extends React.Component<any, any> {
 						/>
 					) 
 				}} />
+				<Route path="/get-apps" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Apps" 
+							apiName='get-apps' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/apps/get.json'
+						/>
+					)
+				}} />
 				<Route path="/get-record" exact={true} render={()=>{
 					return(
 						<RestAPI 
@@ -113,6 +123,16 @@ class App extends React.Component<any, any> {
 							apiName='get-record' 
 							setHeaderTitle={this.setHeaderTitle}
 							schemaURL='apis/record/get.json'
+						/>
+					)
+				}} />
+				<Route path="/get-records" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Records" 
+							apiName='get-records' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/records/get.json'
 						/>
 					)
 				}} />
