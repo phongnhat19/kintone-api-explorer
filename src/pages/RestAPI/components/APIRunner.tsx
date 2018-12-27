@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Paper, Table, TableBody, TableCell, TableRow, TableHead} from '@material-ui/core';
+import {Paper, Table, TableBody, TableCell, TableRow, TableHead, TextField, Button} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import {APISchemaReturnType as Schema} from '../../../services/RestAPI/APIInfo'
 
@@ -14,10 +14,27 @@ const styles = (theme:any) => ({
     },
     table: {
         minWidth: 700,
+    },
+    button: {
+        margin: theme.spacing.unit,
     }
 });
 
 class APIRunner extends React.Component<APIRunnerProps,any> {
+    constructor(props: APIRunnerProps) {
+        super(props)
+        let stateObj = {}
+        Object.keys(props.schema.request['properties']).map((key)=>{
+            stateObj[key] = ""
+        })
+        this.state = stateObj
+    }
+    handleChange = (event:any) => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+    runAPI = () => {
+        
+    }
     render(){
         const { classes } = this.props;
         return(
@@ -27,6 +44,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell>Type</TableCell>
+                            <TableCell>Required</TableCell>
                             <TableCell>Value</TableCell>
                         </TableRow>
                     </TableHead>
@@ -41,13 +59,32 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                                             </strong>
                                         </TableCell>
                                         <TableCell>{this.props.schema.request['properties'][key]['type']}</TableCell>
-                                        <TableCell></TableCell>
+                                        <TableCell>
+                                            {
+                                                (this.props.schema.request['required'].indexOf(key)!==-1)?(
+                                                    <span>Required</span>
+                                                ):("")
+                                            }
+                                        </TableCell>
+                                        <TableCell>
+                                            <TextField
+                                                label="Value"
+                                                value={(this.state)?(this.state[key]):("")}
+                                                name={key}
+                                                onChange={this.handleChange}
+                                                margin="normal"
+                                                variant="outlined"
+                                            />
+                                        </TableCell>
                                     </TableRow>
                                 )
                             })
                         }
                     </TableBody>
                 </Table>
+                <Button onClick={this.runAPI} variant="contained" color="primary" className={classes.button}>
+                    Call
+                </Button>
             </Paper>
         )
     }
