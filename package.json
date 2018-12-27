@@ -10,6 +10,7 @@
     "js-base64": "^2.5.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-json-tree": "^0.11.1",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "^4.0.8"
   },
@@ -25,6 +26,7 @@
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
+    "@types/react-json-tree": "^0.6.9",
     "@types/react-router-dom": "^4.3.1",
     "typescript": "^3.2.2"
   },

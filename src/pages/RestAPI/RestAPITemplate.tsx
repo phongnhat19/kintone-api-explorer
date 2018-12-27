@@ -22,7 +22,6 @@ class RestAPITemplate extends React.Component<Props,any> {
     }
     getSchema = async () => {
         let schema = await APIInfoService.getAPISchema(this.props.schemaURL)
-        console.log(schema)
         schema.id && this.setState({
             schema: schema
         })
