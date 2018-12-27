@@ -116,6 +116,136 @@ class App extends React.Component<any, any> {
 						/>
 					)
 				}} />
+				<Route path="/add-preview-app" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Add Preview App" 
+							apiName='add-preview-app' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/post.json'
+						/>
+					)
+				}} />
+				<Route path="/deploy-app-settings" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Deploy App Settings" 
+							apiName='deploy-app-settings' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/deploy/post.json'
+						/>
+					)
+				}} />
+				<Route path="/get-app-deploy-status" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get App Deploy Status"
+							apiName='get-app-deploy-status' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/deploy/get.json'
+						/>
+					)
+				}} />
+				<Route path="/get-form-fields" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Form Fields" 
+							apiName='get-form-fields' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/app/form/fields/get.json'
+						/>
+					)
+				}} />
+				<Route path="/add-form-fields" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Add Form Fields" 
+							apiName='add-form-fields' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/form/fields/post.json'
+						/>
+					)
+				}} />
+				<Route path="/update-form-fields" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Update Form Fields" 
+							apiName='update-form-fields' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/form/fields/put.json'
+						/>
+					)
+				}} />
+				<Route path="/delete-form-fields" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Delete Form Fields" 
+							apiName='delete-form-fields' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/form/fields/delete.json'
+						/>
+					)
+				}} />
+				<Route path="/get-form-layout" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Form Layout" 
+							apiName='get-form-layout' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/form/layout/get.json'
+						/>
+					)
+				}} />
+					<Route path="/update-form-layout" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Update Form Layout" 
+							apiName='update-form-layout' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/form/layout/put.json'
+						/>
+					)
+				}} />
+				<Route path="/get-views" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Views" 
+							apiName='get-views' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/views/get.json'
+						/>
+					)
+				}} />
+					<Route path="/update-views" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Update Views" 
+							apiName='update-views' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/views/put.json'
+						/>
+					)
+				}} />
+				<Route path="/get-general-settings" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get General Settings" 
+							apiName='get-general-settings' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/settings/get.json'
+						/>
+					)
+				}} />
+					<Route path="/update-general-settings" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Update General Settings" 
+							apiName='update-general-settings' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/preview/app/settings/put.json'
+						/>
+					)
+				}} />
 				<Route path="/get-record" exact={true} render={()=>{
 					return(
 						<RestAPI 

@@ -66,6 +66,76 @@ class Menu extends React.Component<any, any> {
                                     <ListItemText primary={'Get Apps'} />
                                 </ListItem>
                             </Link>
+                            <Link to="/add-preview-app" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Add Preview App'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/deploy-app-settings" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Deploy App Settings'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/get-app-deploy-status" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get App Deploy Status'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/add-preview-app" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Add Preview App'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/get-form-fields" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get Form Fields'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/add-form-fields" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Add Form Fields'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/update-form-fields" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Update Form Fields'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/delete-form-fields" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Delete Form Fields'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/get-form-layout" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get Form Layout'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/update-form-layout" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Update Form Layout'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/get-views" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get Views'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/update-views" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Update Views'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/get-general-settings" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get General Settings'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/update-general-settings" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Update General Settings'} />
+                                </ListItem>
+                            </Link>
                         </List>
                     </Collapse>
                 </List>
