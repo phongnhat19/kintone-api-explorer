@@ -65,6 +65,8 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         }
         if (apiObj.method === 'GET') {
             apiObj['params'] = param
+        } else {
+            apiObj['data'] = param
         }
         let result = await apiInstance.execute(apiObj)
         this.setState({
