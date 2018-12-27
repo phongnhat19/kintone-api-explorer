@@ -26,7 +26,7 @@ const styles = (theme: any) =>{
             backgroundColor: theme.palette.background.paper,
         },
         nested: {
-            paddingLeft: theme.spacing.unit * 10,
+            paddingLeft: theme.spacing.unit * 5,
         },
         menuLink: {
             textDecoration: 'none',
@@ -75,6 +75,56 @@ class Menu extends React.Component<any, any> {
                             <Link to="/get-record" className={classes['menuLink']}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemText primary={'Get Record'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/get-records" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get Records'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/add-record" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Add Record'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/add-records" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Add Records'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/update-record" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Update Record'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/update-records" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Update Records'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/delete-record" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Delete Record'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/delete-records" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Delete Records'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/get-comments" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Get Comments'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/add-comment" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Add Comment'} />
+                                </ListItem>
+                            </Link>
+                            <Link to="/delete-comment" className={classes['menuLink']}>
+                                <ListItem button className={classes.nested}>
+                                    <ListItemText primary={'Delete Comment'} />
                                 </ListItem>
                             </Link>
                         </List>

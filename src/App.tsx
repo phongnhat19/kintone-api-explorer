@@ -116,6 +116,76 @@ class App extends React.Component<any, any> {
 						/>
 					)
 				}} />
+				<Route path="/get-records" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Records" 
+							apiName='get-records' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/records/get.json'
+						/>
+					)
+				}} />
+				<Route path="/add-record" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Add Record" 
+							apiName='add-record' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/record/post.json'
+						/>
+					)
+				}} />
+				<Route path="/add-records" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Add Record" 
+							apiName='add-records' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/records/post.json'
+						/>
+					)
+				}} />
+				<Route path="/update-record" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Update Record" 
+							apiName='update-record' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/record/put.json'
+						/>
+					)
+				}} />
+				<Route path="/update-records" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Update Records" 
+							apiName='update-records' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/records/put.json'
+						/>
+					)
+				}} />
+				<Route path="/delete-record" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Delete Record" 
+							apiName='delete-record' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/record/delete.json'
+						/>
+					)
+				}} />
+				<Route path="/delete-records" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Delete Records" 
+							apiName='delete-records' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/records/delete.json'
+						/>
+					)
+				}} />
 				<Route path="/get-space" exact={true} render={()=>{
 					return(
 						<RestAPI 
@@ -123,6 +193,36 @@ class App extends React.Component<any, any> {
 							apiName='get-space' 
 							setHeaderTitle={this.setHeaderTitle}
 							schemaURL='apis/space/get.json'
+						/>
+					)
+				}} />
+				<Route path="/get-comments" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Get Comments" 
+							apiName='get-comments' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/record/comments/get.json'
+						/>
+					)
+				}} />
+				<Route path="/add-comment" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Add Comment" 
+							apiName='add-comment' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/record/comment/get.json'
+						/>
+					)
+				}} />
+				<Route path="/delete-comment" exact={true} render={()=>{
+					return(
+						<RestAPI 
+							title="Delete Comment" 
+							apiName='delete-comment' 
+							setHeaderTitle={this.setHeaderTitle}
+							schemaURL='apis/record/comment/delete.json'
 						/>
 					)
 				}} />
