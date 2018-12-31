@@ -6,6 +6,7 @@ import APIService from '../../../services/RestAPI/APIService'
 import LocalConfig from '../../../services/LocalConfig'
 import JSONTree from 'react-json-tree'
 import APIRequest from "src/pages/RestAPI/components/APIRequest";
+import ArrayInput from './InputField/ArrayInput';
 
 interface APIRunnerProps {
     schema: Schema,
@@ -58,8 +59,11 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
     };
     updateRequestState = async (run?: boolean) => {
         let param = {}
+        console.log(this.props.schema.request['properties'])
         Object.keys(this.props.schema.request['properties']).map((key)=>{
-            param[key] = this.state[key]
+            if (this.state[key]) {
+                param[key] = this.state[key]
+            }
         })
         let apiObj = this.state.apiRequest
         if (apiObj.method === 'GET') {
@@ -83,7 +87,6 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
     }
     runAPI = async () => {
         this.updateRequestState(true)
-        
     }
     renderResult = (result: object) => {
         const theme = {
@@ -125,6 +128,34 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
             <APIRequest request={{...request, ...requestMeta}}></APIRequest>
         )
     }
+    handleUpdateArray = (value: Array<any>, statekey: string) => {
+        this.setState({
+            [statekey]: value
+        },()=>{
+            this.updateRequestState(false)
+        })
+    }
+    renderInputField = (schema: Schema, key: string) => {
+        if (schema.request['properties'][key]['type'] === 'array') {
+            return <ArrayInput 
+                        value={(this.state && this.state[key])?(this.state[key]):([])} 
+                        handleUpdate={this.handleUpdateArray}
+                        statekey={key}
+                    />
+        }
+        else {
+            return(
+                <TextField
+                    label="Value"
+                    value={(this.state)?(this.state[key]):("")}
+                    name={key}
+                    onChange={this.handleChange}
+                    margin="normal"
+                    variant="outlined"
+                />
+            )
+        }
+    }
     render(){
         const { classes } = this.props;
         return(
@@ -159,14 +190,10 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                                             }
                                         </TableCell>
                                         <TableCell>
-                                            <TextField
-                                                label="Value"
-                                                value={(this.state)?(this.state[key]):("")}
-                                                name={key}
-                                                onChange={this.handleChange}
-                                                margin="normal"
-                                                variant="outlined"
-                                            />
+                                            {
+                                                this.renderInputField(this.props.schema, key)
+                                            }
+                                            
                                         </TableCell>
                                     </TableRow>
                                 )

@@ -172,11 +172,6 @@ class Menu extends React.Component<any, any> {
                                     <ListItemText primary={'Update Records'} />
                                 </ListItem>
                             </Link>
-                            <Link to="/delete-record" className={classes['menuLink']}>
-                                <ListItem button className={classes.nested}>
-                                    <ListItemText primary={'Delete Record'} />
-                                </ListItem>
-                            </Link>
                             <Link to="/delete-records" className={classes['menuLink']}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemText primary={'Delete Records'} />
