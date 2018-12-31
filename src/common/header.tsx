@@ -3,14 +3,12 @@ import {AppBar, Toolbar, IconButton, Typography, Fab} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import SettingsIcon from '@material-ui/icons/Settings'
 import { withStyles } from '@material-ui/core/styles';
-import LocalConfig from '../services/LocalConfig'
+import ConfigDialog from './ConfigDialog'
 
 interface Props {
     title: string;
     handleDrawerToggle: () => void;
 }
-
-const localConfig = new LocalConfig()
 
 const drawerWidth = 240;
 const styles = (theme:any) => ({
@@ -43,9 +41,23 @@ const styles = (theme:any) => ({
 });
 
 class Header extends React.Component<Props, any> {
+	constructor(props: Props) {
+		super(props)
+		this.state = {
+			openDialog: false
+		}
+	}
 	reConfig = () => {
-		localConfig.clearConfig()
-		window.location.reload()
+		/* localConfig.clearConfig()
+		window.location.reload() */
+		this.setState({
+			openDialog: true
+		})
+	}
+	handleClose = () => {
+		this.setState({
+			openDialog: false
+		})
 	}
     render() {
         const classes = this.props['classes'];
@@ -66,6 +78,7 @@ class Header extends React.Component<Props, any> {
 					<Fab size="small" aria-label="Config" className={classes.fab} onClick={this.reConfig}>
 						<SettingsIcon />
 					</Fab>
+					<ConfigDialog open={this.state.openDialog} handleClose={this.handleClose} />
                 </Toolbar>
             </AppBar>
         )
