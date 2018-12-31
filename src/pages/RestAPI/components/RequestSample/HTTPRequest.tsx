@@ -44,7 +44,7 @@ class HTTPRequest extends React.Component<APIRequestProps,any> {
     }
     renderGetRequest = (request: object): string => {
         const methodRequest = request['method']
-        const params = request['params']
+        const params = request['params'] || {}
         const queryStr = this.buildGETRequestParam(params)
         const headerStr = this.buildHeaderHTTPRequest(request['headers'])
         var requestSample = `${methodRequest} /k/v1/${request['path']}${queryStr}\nHost: https://${request['domain']}\n${headerStr}

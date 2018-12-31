@@ -36,7 +36,13 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         Object.keys(props.schema.request['properties']).forEach((key)=>{
             stateObj[key] = ""
         })
-        this.state = stateObj
+        this.state = {...stateObj,...{
+            apiRequest: {
+                path: props.schema.path,
+                method: props.schema.httpMethod,
+                withHeader: true
+            }
+        }}
     }
     componentDidUpdate(prevProps: APIRunnerProps) {
         if (prevProps.schema.id !== this.props.schema.id) {
@@ -48,34 +54,36 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         }
     }
     handleChange = (event:any) => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({ [event.target.name]: event.target.value }, this.updateRequestState);
     };
-    runAPI = async () => {
+    updateRequestState = async (run?: boolean) => {
         let param = {}
-        this.setState({
-            apiRequest: null,
-            loading: true,
-            apiResult: null
-        })
         Object.keys(this.props.schema.request['properties']).map((key)=>{
             param[key] = this.state[key]
         })
-        let apiObj = {
-            path: this.props.schema.path,
-            method: this.props.schema.httpMethod,
-            withHeader: true
-        }
+        let apiObj = this.state.apiRequest
         if (apiObj.method === 'GET') {
             apiObj['params'] = param
         } else {
             apiObj['data'] = param
         }
-        let result = await apiInstance.execute(apiObj)
         this.setState({
-            apiRequest: apiObj,
-            apiResult: result,
-            loading: false
+            apiRequest: apiObj
         })
+        if (run) {
+            this.setState({
+                loading: true
+            })
+            let result = await apiInstance.execute(apiObj)
+            this.setState({
+                apiResult: result,
+                loading: false
+            })
+        }
+    }
+    runAPI = async () => {
+        this.updateRequestState(true)
+        
     }
     renderResult = (result: object) => {
         const theme = {
@@ -170,7 +178,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                     Call
                 </Button>
                 {
-                    this.state.apiResult && this.renderRequest(this.state.apiRequest)
+                    this.renderRequest(this.state.apiRequest)
                 }
                 {
                     this.state.apiResult && this.renderResult(this.state.apiResult)
