@@ -21,6 +21,11 @@ class HTTPRequest extends React.Component<APIRequestProps,any> {
         });
         return queryString
     }
+    buildPOSTRequestParam = (data: object): string => {
+        let body = `${JSON.stringify(data)}`
+        return body
+    }
+
     buildHeaderHTTPRequest = (headers: object): String => {
         let headerString = ""
         Object.keys(headers).forEach(key => {
@@ -35,22 +40,32 @@ class HTTPRequest extends React.Component<APIRequestProps,any> {
         var requestSample: string = ""
         switch ( methodRequest ) {
             case 'GET':
-                requestSample = this.renderGetRequest(request)
+                requestSample = this.renderGetRequestTemplate(request)
                 break
             case 'POST':
-            default:
+                requestSample = this.renderPostRequestTemplate(request)
+                break
         }
         return requestSample
     }
-    renderGetRequest = (request: object): string => {
+    renderGetRequestTemplate = (request: object): string => {
         const methodRequest = request['method']
         const params = request['params'] || {}
         const queryStr = this.buildGETRequestParam(params)
         const headerStr = this.buildHeaderHTTPRequest(request['headers'])
-        var requestSample = `${methodRequest} /k/v1/${request['path']}${queryStr}\nHost: https://${request['domain']}\n${headerStr}
-                            `
+        let requestSample = `${methodRequest} /k/v1/${request['path']}${queryStr}\nHost: https://${request['domain']}\n${headerStr}`
         return requestSample
     }
+    renderPostRequestTemplate = (request: object): string => {
+        const methodRequest = request['method']
+        const body = request['data'] || {}
+        let headers = request['headers']
+        headers["Content-Type"] = "application/json"
+        const headerStr = this.buildHeaderHTTPRequest(headers)
+        let requestSample = `${methodRequest} /k/v1/${request['path']}\nHost: https://${request['domain']}\n${headerStr}\n${this.buildPOSTRequestParam(body)}`
+        return requestSample
+    }
+    
     render() {
         const { request } = this.props;
         return <SyntaxHighlighter language='http' style={dark}>{this.renderRequestTemplate(request)}</SyntaxHighlighter>
