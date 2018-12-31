@@ -306,16 +306,6 @@ class App extends React.Component<any, any> {
 						/>
 					)
 				}} />
-				<Route path="/delete-record" exact={true} render={()=>{
-					return(
-						<RestAPI 
-							title="Delete Record" 
-							apiName='delete-record' 
-							setHeaderTitle={this.setHeaderTitle}
-							schemaURL='apis/record/delete.json'
-						/>
-					)
-				}} />
 				<Route path="/delete-records" exact={true} render={()=>{
 					return(
 						<RestAPI 
