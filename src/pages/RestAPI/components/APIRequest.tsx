@@ -26,7 +26,7 @@ class APIRequest extends React.Component<APIRequestProps,any> {
         }
         return requestSample
     }
-    buildGETRequestParam = (params: object): String => {
+    buildGETRequestParam = (params: object): string => {
         let queryString = ""
         Object.keys(params).forEach(key => {
             if (params[key]){
@@ -40,7 +40,7 @@ class APIRequest extends React.Component<APIRequestProps,any> {
         });
         return queryString
     }
-    buildHeaderHTTPRequest = (headers: object): String => {
+    buildHeaderHTTPRequest = (headers: object): string => {
         let headerString = ""
         Object.keys(headers).forEach(key => {
             if (headers[key]){
@@ -50,7 +50,7 @@ class APIRequest extends React.Component<APIRequestProps,any> {
         return headerString
     }
 
-    renderGetRequest = (request: object): String => {
+    renderGetRequest = (request: object): string => {
         const methodRequest = request['method']
         const params = request['params']
         const queryStr = this.buildGETRequestParam(params)
