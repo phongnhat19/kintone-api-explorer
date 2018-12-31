@@ -5,6 +5,7 @@ import {APISchemaReturnType as Schema} from '../../../services/RestAPI/APIInfo'
 import APIService from '../../../services/RestAPI/APIService'
 import LocalConfig from '../../../services/LocalConfig'
 import JSONTree from 'react-json-tree'
+import APIRequest from "src/pages/RestAPI/components/APIRequest";
 
 interface APIRunnerProps {
     schema: Schema,
@@ -52,6 +53,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
     runAPI = async () => {
         let param = {}
         this.setState({
+            apiRequest: null,
             loading: true,
             apiResult: null
         })
@@ -70,6 +72,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         }
         let result = await apiInstance.execute(apiObj)
         this.setState({
+            apiRequest: apiObj,
             apiResult: result,
             loading: false
         })
@@ -98,10 +101,20 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         return(
             <div style={{padding: 20}} >
                 <Typography variant="h5" component="h3">
-                    API Result
+                    Response
                 </Typography>
-                <JSONTree data={result} theme={theme} invertTheme={true} hideRoot={true} shouldExpandNode={() => true} />
+                <JSONTree data={result} theme={theme} invertTheme={false} hideRoot={true} shouldExpandNode={() => true} />
             </div>
+        )
+    }
+    renderRequest = (request: object) => {
+        const requestMeta = {
+            "domain": apiInstance.domain,
+            "headers": apiInstance.kintoneHeader
+        }
+
+        return(
+            <APIRequest classes={{...request, ...requestMeta}}></APIRequest>
         )
     }
     render(){
@@ -156,6 +169,9 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                 <Button onClick={this.runAPI} variant="contained" color="primary" className={classes.button}>
                     Call
                 </Button>
+                {
+                    this.state.apiResult && this.renderRequest(this.state.apiRequest)
+                }
                 {
                     this.state.apiResult && this.renderResult(this.state.apiResult)
                 }
