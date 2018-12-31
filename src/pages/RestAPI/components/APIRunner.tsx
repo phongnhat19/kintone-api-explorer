@@ -65,6 +65,8 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         }
         if (apiObj.method === 'GET') {
             apiObj['params'] = param
+        } else {
+            apiObj['data'] = param
         }
         let result = await apiInstance.execute(apiObj)
         this.setState({
@@ -98,7 +100,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                 <Typography variant="h5" component="h3">
                     API Result
                 </Typography>
-                <JSONTree data={result} theme={theme} invertTheme={true} />
+                <JSONTree data={result} theme={theme} invertTheme={true} hideRoot={true} shouldExpandNode={() => true} />
             </div>
         )
     }
@@ -128,9 +130,11 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                                         <TableCell>{this.props.schema.request['properties'][key]['type']}</TableCell>
                                         <TableCell>
                                             {
+                                                (this.props.schema.request['required']) ? (
                                                 (this.props.schema.request['required'].indexOf(key)!==-1)?(
                                                     <span>Required</span>
                                                 ):("")
+                                                ) : ("No")
                                             }
                                         </TableCell>
                                         <TableCell>
