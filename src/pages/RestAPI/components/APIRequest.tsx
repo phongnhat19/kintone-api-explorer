@@ -1,72 +1,51 @@
 import * as React from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/styles/prism'
-import {Typography} from '@material-ui/core';
+import {Typography, Tabs, Tab} from '@material-ui/core';
+import HTTPRequest from './RequestSample/HTTPRequest'
+import CURLRequest from './RequestSample/CURLRequest'
+import JSSDKRequest from './RequestSample/JSSDKRequest'
 
 interface APIRequestProps {
-    classes: any
+    request: any
 }
 
 class APIRequest extends React.Component<APIRequestProps,any> {
     constructor(props: APIRequestProps) {
         super(props)
-        let stateObj = {}
-        this.setState(stateObj)
-    }
-    
-    renderRequestTemplate = (request: object) =>  {
-        const methodRequest = request['method']
-        var requestSample: String = ""
-        switch ( methodRequest ) {
-            case 'GET':
-                requestSample = this.renderGetRequest(request)
-                break
-            case 'POST':
-            default:
+        this.state = {
+            tab: 0
         }
-        return requestSample
     }
-    buildGETRequestParam = (params: object): String => {
-        let queryString = ""
-        Object.keys(params).forEach(key => {
-            if (params[key]){
-                if (queryString != "") {
-                    queryString += "&"
-                } else {
-                    queryString += "?"
-                }
-                queryString += key + "=" + encodeURIComponent(params[key])
-            }
-        });
-        return queryString
-    }
-    buildHeaderHTTPRequest = (headers: object): String => {
-        let headerString = ""
-        Object.keys(headers).forEach(key => {
-            if (headers[key]){
-                headerString += `${key} : ${headers[key]}\n`
-            }
-        });
-        return headerString
-    }
-
-    renderGetRequest = (request: object): String => {
-        const methodRequest = request['method']
-        const params = request['params']
-        const queryStr = this.buildGETRequestParam(params)
-        const headerStr = this.buildHeaderHTTPRequest(request['headers'])
-        var requestSample = `${methodRequest} /k/v1/${request['path']}${queryStr}\nHost: https://${request['domain']}\n${headerStr}
-                            `
-        return requestSample
-    }
+    handleChange = (event: any, value: number) => {
+        this.setState({ tab: value });
+    };
     render(){
-        const { classes } = this.props;
+        const { request } = this.props;
         return(
-            <div style={{padding: 20}} >
-                <Typography variant="h5" component="h3">
+            <div>
+                <Typography variant="h5" component="h3" style={{padding: 20}} >
                     Request
                 </Typography>
-                <SyntaxHighlighter language='http' style={dark}>{this.renderRequestTemplate(classes)}</SyntaxHighlighter>
+                <Tabs
+                    value={this.state.tab}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={this.handleChange}
+                >
+                    <Tab label="HTTP" />
+                    <Tab label="CURL"/>
+                    <Tab label="JS SDK" />
+                </Tabs>
+                <div style={{padding: 20}} >
+                    {
+                        this.state.tab===0 && <HTTPRequest request={request} />
+                    }
+                    {
+                        this.state.tab===1 && <CURLRequest request={request} />
+                    }
+                    {
+                        this.state.tab===2 && <JSSDKRequest request={request} />
+                    }
+                </div>
             </div>
         )
     }

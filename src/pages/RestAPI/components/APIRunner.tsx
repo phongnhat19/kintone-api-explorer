@@ -114,7 +114,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         }
 
         return(
-            <APIRequest classes={{...request, ...requestMeta}}></APIRequest>
+            <APIRequest request={{...request, ...requestMeta}}></APIRequest>
         )
     }
     render(){
