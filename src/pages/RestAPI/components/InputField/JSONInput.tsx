@@ -84,13 +84,15 @@ class JSONInput extends React.Component<JSONInputProps,any> {
             </div>
         )
     }
-    buildObject = () => {
+    buildObject = (add: boolean) => {
         let arrayKV = this.state.arrayKV
-        arrayKV.push({
-            key: this.state.newKey,
-            value: this.state.newValue,
-            type: this.state.newType
-        })
+        if (add) {
+            arrayKV.push({
+                key: this.state.newKey,
+                value: this.state.newValue,
+                type: this.state.newType
+            })
+        }
         let value = this.state.value
         arrayKV.forEach((kvObj:any)=>{
             value[kvObj.key] = {
@@ -111,7 +113,7 @@ class JSONInput extends React.Component<JSONInputProps,any> {
         arrayKV[index][e.target.name] = e.target.value
         this.setState({
             arrayKV: arrayKV
-        }, this.buildObject)
+        }, () => this.buildObject(false))
     }
     renderValue = (classes: any) => {
         return this.state.arrayKV.map((kvObj: any, index: number)=>{
@@ -161,7 +163,7 @@ class JSONInput extends React.Component<JSONInputProps,any> {
                 {
                     this.renderNewFieldInput(classes)
                 }
-                <Button color="primary" className={classes.button} onClick={this.buildObject}>
+                <Button color="primary" className={classes.button} onClick={() => this.buildObject(true)}>
                     Add Field
                 </Button>
             </div>
