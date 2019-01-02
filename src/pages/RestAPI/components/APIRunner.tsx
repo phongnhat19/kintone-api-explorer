@@ -7,6 +7,7 @@ import LocalConfig from '../../../services/LocalConfig'
 import JSONTree from 'react-json-tree'
 import APIRequest from "src/pages/RestAPI/components/APIRequest";
 import ArrayInput from './InputField/ArrayInput';
+import JSONInput from './InputField/JSONInput'
 
 interface APIRunnerProps {
     schema: Schema,
@@ -59,10 +60,20 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
     };
     updateRequestState = async (run?: boolean) => {
         let param = {}
-        console.log(this.props.schema.request['properties'])
         Object.keys(this.props.schema.request['properties']).map((key)=>{
             if (this.state[key]) {
-                param[key] = this.state[key]
+                if (typeof this.state[key] === 'object') {
+                    let objData = Object.assign({},this.state[key])
+                    Object.keys(objData).forEach((objKey)=>{
+                        objData[objKey] = {
+                            value: objData[objKey].value
+                        }
+                    })
+                    param[key] = objData
+                }
+                else {
+                    param[key] = this.state[key]
+                }
             }
         })
         let apiObj = this.state.apiRequest
@@ -135,11 +146,25 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
             this.updateRequestState(false)
         })
     }
+    handleUpdateJSON = (value: object, statekey: string) => {
+        this.setState({
+            [statekey]: value
+        },()=>{
+            this.updateRequestState(false)
+        })
+    }
     renderInputField = (schema: Schema, key: string) => {
         if (schema.request['properties'][key]['type'] === 'array') {
             return <ArrayInput 
                         value={(this.state && this.state[key])?(this.state[key]):([])} 
                         handleUpdate={this.handleUpdateArray}
+                        statekey={key}
+                    />
+        }
+        else if (schema.request['properties'][key]['type'] === 'object') {
+            return <JSONInput 
+                        value={(this.state && this.state[key])?(this.state[key]):({})} 
+                        handleUpdate={this.handleUpdateJSON}
                         statekey={key}
                     />
         }
@@ -193,7 +218,6 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                                             {
                                                 this.renderInputField(this.props.schema, key)
                                             }
-                                            
                                         </TableCell>
                                     </TableRow>
                                 )
