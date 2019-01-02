@@ -81,11 +81,6 @@ class Menu extends React.Component<any, any> {
                                     <ListItemText primary={'Get App Deploy Status'} />
                                 </ListItem>
                             </Link>
-                            <Link to="/add-preview-app" className={classes['menuLink']}>
-                                <ListItem button className={classes.nested}>
-                                    <ListItemText primary={'Add Preview App'} />
-                                </ListItem>
-                            </Link>
                             <Link to="/get-form-fields" className={classes['menuLink']}>
                                 <ListItem button className={classes.nested}>
                                     <ListItemText primary={'Get Form Fields'} />
