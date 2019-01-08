@@ -136,7 +136,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         }
 
         return(
-            <APIRequest request={{...request, ...requestMeta}}></APIRequest>
+            <APIRequest request={Object.assign({},{...request, ...requestMeta})}></APIRequest>
         )
     }
     handleUpdateArray = (value: Array<any>, statekey: string) => {

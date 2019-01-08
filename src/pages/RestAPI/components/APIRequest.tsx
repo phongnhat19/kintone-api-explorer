@@ -20,6 +20,9 @@ class APIRequest extends React.Component<APIRequestProps,any> {
     };
     render(){
         const { request } = this.props;
+        if (request['method'] === 'GET') {
+            delete request['headers']['Content-Type']
+        }
         return(
             <div>
                 <Typography variant="h5" component="h3" style={{padding: 20}} >
