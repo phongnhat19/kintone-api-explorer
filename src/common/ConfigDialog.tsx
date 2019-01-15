@@ -115,8 +115,7 @@ class ConfigDialog extends React.Component<ConfigProps, ConfigState> {
         }
         if (!hasError) {
             if (LocalConfig.config(configObj as configType)) {
-                this.forceUpdate();
-                this.props.handleClose()
+                window.location.reload()
             }
         }
     }

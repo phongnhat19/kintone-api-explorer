@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/styles/prism'
+import { vs2015 } from 'react-syntax-highlighter/dist/styles/hljs'
 
 interface APIRequestProps {
     request: any
@@ -25,7 +25,14 @@ class CURLRequest extends React.Component<APIRequestProps,any> {
                 } else {
                     queryString += "?"
                 }
-                queryString += key + "=" + encodeURIComponent(params[key])
+                if (params[key] instanceof Array) {
+                    params[key].forEach((item:any, index:number)=>{
+                        queryString += `${key}[${index}]=${item}`
+                    }) 
+                }
+                else {
+                    queryString += key + "=" + encodeURIComponent(params[key])
+                }
             }
         });
         return queryString
@@ -47,14 +54,17 @@ class CURLRequest extends React.Component<APIRequestProps,any> {
         const contentJSON = (request['method'] !== 'GET')?(`-H 'Content-type: application/json' \\\n`):('')
         const bodyData = request['data'] || {}
         const bodyString = (request['method'] !== 'GET')?(this.buildBodyString(bodyData)):('')
-        let fullURL = `https://${request['domain']}/k/v1/${request['path']}${queryStr}`
+        if (request['domain'].indexOf('https://')!==0) {
+            request['domain'] = `https://${request['domain']}`
+        }
+        let fullURL = `${request['domain']}/k/v1/${request['path']}${queryStr}`
         let requestSample: string = `curl -X ${request['method'] || 'GET'} \\\n ${contentJSON} ${headerStr} ${bodyString} '${fullURL}'`
         
         return requestSample
     }
     render() {
         const { request } = this.props;
-        return <SyntaxHighlighter language='http' style={dark}>{this.renderRequestTemplate(request)}</SyntaxHighlighter>
+        return <SyntaxHighlighter language='http' style={vs2015} customStyle={{fontSize:'18px'}}>{this.renderRequestTemplate(request)}</SyntaxHighlighter>
     }
 }
 

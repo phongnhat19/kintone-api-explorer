@@ -62,11 +62,11 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         let param = {}
         Object.keys(this.props.schema.request['properties']).map((key)=>{
             if (this.state[key]) {
-                if (typeof this.state[key] === 'object') {
+                if (typeof this.state[key] === 'object' && !(this.state[key] instanceof Array)) {
                     let objData = Object.assign({},this.state[key])
                     Object.keys(objData).forEach((objKey)=>{
                         objData[objKey] = {
-                            value: objData[objKey].value
+                            value: objData[objKey]
                         }
                     })
                     param[key] = objData
@@ -140,9 +140,9 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
         )
     }
     handleUpdateArray = (value: Array<any>, statekey: string) => {
-        this.setState({
-            [statekey]: value
-        },()=>{
+        let newStateObj = {}
+        newStateObj[statekey] = value
+        this.setState(newStateObj,()=>{
             this.updateRequestState(false)
         })
     }
