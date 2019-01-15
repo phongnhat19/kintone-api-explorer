@@ -226,7 +226,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                     </TableBody>
                 </Table>
                 <Button onClick={this.runAPI} variant="contained" color="primary" className={classes.button}>
-                    Call
+                    Execute
                 </Button>
                 {
                     this.renderRequest(this.state.apiRequest)
