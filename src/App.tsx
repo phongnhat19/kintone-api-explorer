@@ -11,7 +11,6 @@ import ConfigPage from './pages/Config/config'
 import LocalConfig from './services/LocalConfig';
 
 import APIInfoService from './services/RestAPI/APIInfo'
-import {Helmet} from "react-helmet";
 
 let currentConfig = new LocalConfig()
 
@@ -383,14 +382,6 @@ class App extends React.Component<any, any> {
 		}
 		return (
 			<Router>
-				<Helmet>
-					<title>Kintone API Explorer</title>
-					<meta name="description" content="Some simple API Explorer to help developer" />
-					<meta property="og:title" content="Kintone API Explorer"/>
-					<meta property="og:description" content="Some simple API Explorer to help developer"/>
-					<meta property="og:image" content="https://cybozu.vn/img/visual_bnr_02.png"/>
-					<meta property="og:url" content={window.location.href}/>
-				</Helmet>
 				<div className={classes.root}>
 					<CssBaseline/>
 					<Header title={this.state.title} handleDrawerToggle={this.handleDrawerToggle}/>
