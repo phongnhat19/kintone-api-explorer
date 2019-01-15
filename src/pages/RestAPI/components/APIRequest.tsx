@@ -37,6 +37,9 @@ class APIRequest extends React.Component<APIRequestProps,any> {
                     <Tab label="HTTP" />
                     <Tab label="CURL"/>
                     <Tab label="JS SDK" />
+                    <Tab label="NodeJS SDK" />
+                    <Tab label="Java SDK" />
+                    <Tab label="Swift SDK" />
                 </Tabs>
                 <div style={{padding: 20}} >
                     {
@@ -47,6 +50,15 @@ class APIRequest extends React.Component<APIRequestProps,any> {
                     }
                     {
                         this.state.tab===2 && <JSSDKRequest request={request} />
+                    }
+                    {
+                        this.state.tab===3 && <JSSDKRequest request={request} />
+                    }
+                    {
+                        this.state.tab===4 && <JSSDKRequest request={request} />
+                    }
+                    {
+                        this.state.tab===5 && <JSSDKRequest request={request} />
                     }
                 </div>
             </div>
