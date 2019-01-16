@@ -93,6 +93,29 @@ let jsTemplate = [
         `
     },
     {
+        path: 'records.json',
+        method: 'POST',
+        template: `
+            {{authTemplate}}    
+
+            // Define connection that included auth
+            var kintoneConnection = new kintoneJSSDK.Connection(kintoneAuth);
+
+            // Init record instance
+            var kintoneRecord = new kintoneJSSDK.Record(connection);
+
+            // Get Records
+            var app = {{app}};
+            var records = {{records}}
+            kintoneRecord.addRecords(app, records).then((rsp) => {
+                console.log(rsp);
+            }).catch((err) => {
+                // This SDK return err with KintoneAPIExeption
+                console.log(err.get());
+            });
+        `
+    },
+    {
         path: 'record/comments.json',
         method: 'GET',
         template: `
