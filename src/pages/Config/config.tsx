@@ -125,11 +125,14 @@ class ConfigPage extends React.Component<any,ConfigState> {
             configObj.kintoneHeader = {
                 'X-Cybozu-Authorization': Base64.encode(`${this.state.username}:${this.state.password}`)
             }
+            configObj['username'] = this.state.username
+            configObj['password'] = this.state.password
         }
         else if (configObj.authType === 'API_TOKEN') {
             configObj.kintoneHeader = {
                 'X-Cybozu-API-Token': this.state.apiToken
             }
+            configObj['apiToken'] = this.state.apiToken
         }
         if (!hasError) {
             if (LocalConfig.config(configObj as configType)) {

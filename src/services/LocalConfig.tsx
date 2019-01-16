@@ -4,6 +4,9 @@ class LocalConfig {
     public domain: string
     public fullURL: string
     public authType: 'PASSWORD' | 'API_TOKEN'
+    public username?: string
+    public password?: string
+    public apiToken?: string
     private kintoneHeader: object
     private initiated = true
     constructor(configObj?: configType) {
@@ -25,6 +28,9 @@ class LocalConfig {
                 this.domain = configJSON.domain
                 this.authType = configJSON.authType
                 this.kintoneHeader = Object.assign({},configJSON.kintoneHeader)
+                this.username = configJSON.username
+                this.password = configJSON.password
+                this.apiToken = configJSON.apiToken
             } catch (error) {
                 this.initiated = false
             }
@@ -44,12 +50,7 @@ class LocalConfig {
     }
 
     public static config(configObj: configType): boolean {
-        let localObj = {
-            domain: configObj.domain,
-            authType: configObj.authType,
-            kintoneHeader: configObj.kintoneHeader
-        }
-        localStorage.setItem('kintone-api-explorer-config', JSON.stringify(localObj))
+        localStorage.setItem('kintone-api-explorer-config', JSON.stringify(configObj))
         return true
     }
 

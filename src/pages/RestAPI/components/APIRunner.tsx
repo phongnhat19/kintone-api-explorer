@@ -6,8 +6,8 @@ import APIService from '../../../services/RestAPI/APIService'
 import LocalConfig from '../../../services/LocalConfig'
 import JSONTree from 'react-json-tree'
 import APIRequest from "src/pages/RestAPI/components/APIRequest";
-import ArrayInput from './InputField/ArrayInput';
 import JSONInput from './InputField/JSONInput'
+import 'jsoneditor-react/es/editor.min.css';
 
 interface APIRunnerProps {
     schema: Schema,
@@ -66,7 +66,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                     let objData = Object.assign({},this.state[key])
                     Object.keys(objData).forEach((objKey)=>{
                         objData[objKey] = {
-                            value: objData[objKey]
+                            value: objData[objKey].value
                         }
                     })
                     param[key] = objData
@@ -155,7 +155,7 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
     }
     renderInputField = (schema: Schema, key: string) => {
         if (schema.request['properties'][key]['type'] === 'array') {
-            return <ArrayInput 
+            return <JSONInput 
                         value={(this.state && this.state[key])?(this.state[key]):([])} 
                         handleUpdate={this.handleUpdateArray}
                         statekey={key}

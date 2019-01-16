@@ -279,7 +279,7 @@ class App extends React.Component<any, any> {
 				<Route path="/add-records" exact={true} render={()=>{
 					return(
 						<RestAPI 
-							title="Add Record" 
+							title="Add Records" 
 							apiName='add-records' 
 							setHeaderTitle={this.setHeaderTitle}
 							schemaURL='apis/records/post.json'
@@ -342,7 +342,7 @@ class App extends React.Component<any, any> {
 							title="Add Comment" 
 							apiName='add-comment' 
 							setHeaderTitle={this.setHeaderTitle}
-							schemaURL='apis/record/comment/get.json'
+							schemaURL='apis/record/comment/post.json'
 						/>
 					)
 				}} />
