@@ -212,7 +212,7 @@ class App extends React.Component<any, any> {
 							title="Get Views" 
 							apiName='get-views' 
 							setHeaderTitle={this.setHeaderTitle}
-							schemaURL='apis/preview/app/views/get.json'
+							schemaURL='apis/app/views/get.json'
 						/>
 					)
 				}} />

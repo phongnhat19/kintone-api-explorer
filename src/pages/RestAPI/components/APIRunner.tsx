@@ -7,7 +7,6 @@ import LocalConfig from '../../../services/LocalConfig'
 import JSONTree from 'react-json-tree'
 import APIRequest from "src/pages/RestAPI/components/APIRequest";
 import JSONInput from './InputField/JSONInput'
-import 'jsoneditor-react/es/editor.min.css';
 
 interface APIRunnerProps {
     schema: Schema,
@@ -162,6 +161,13 @@ class APIRunner extends React.Component<APIRunnerProps,any> {
                     />
         }
         else if (schema.request['properties'][key]['type'] === 'object') {
+            return <JSONInput 
+                        value={(this.state && this.state[key])?(this.state[key]):({})} 
+                        handleUpdate={this.handleUpdateJSON}
+                        statekey={key}
+                    />
+        }
+        else if (schema.request['properties'][key]['$ref'] === 'UpdateKey') {
             return <JSONInput 
                         value={(this.state && this.state[key])?(this.state[key]):({})} 
                         handleUpdate={this.handleUpdateJSON}

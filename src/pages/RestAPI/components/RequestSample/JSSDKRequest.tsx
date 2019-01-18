@@ -43,13 +43,25 @@ const replaceParams = (request: object, code:string):string => {
 class JSSDKRequest extends React.Component<APIRequestProps,any> {
     renderRequestTemplate = (request: object): string =>  {
         let requestSample: string = ''
+        let transformer: any
         jsTemplate.some((template) => {
             if (template.path === request['path'] && template.method === request['method']) {
                 requestSample = template.template
+                transformer = template.transformer
                 return true
             }
             return false
         })
+        if (transformer) {
+            Object.keys(transformer).forEach((key: string)=>{
+                if (request['method']==='GET') {
+                    request['params'][key] = transformer[key](request['params'])
+                }
+                else {
+                    request['data'][key] = transformer[key](request['data'])
+                }
+            })
+        }
         
         return replaceParams(request, requestSample.replace('{{authTemplate}}',buildAuthCode()))
     }
