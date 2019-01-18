@@ -66,7 +66,8 @@ class ConfigPage extends React.Component<any,ConfigState> {
     handleChange = (event:any) => {
         this.setState({ [event.target.name]: event.target.value } as ConfigState);
     };
-    handleSubmit = ():void => {
+    handleSubmit = (e:any):void => {
+        e.prevenDefault()
         let hasError = false
         this.setState({
             errorDomain: '',

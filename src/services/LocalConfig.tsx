@@ -17,7 +17,9 @@ class LocalConfig {
             let localObj = {
                 domain: this.domain,
                 authType: this.authType,
-                kintoneHeader: this.kintoneHeader
+                kintoneHeader: this.kintoneHeader,
+                username: this.username,
+                password: this.password
             }
             localStorage.setItem('kintone-api-explorer-config', JSON.stringify(localObj))
         }
