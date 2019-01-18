@@ -657,6 +657,30 @@ let jsTemplate = [
                 console.log(err.get());
             });
         `
+    },
+    {
+        path: 'app/settings.json',
+        method: 'GET',
+        template: `
+            {{authTemplate}}    
+
+            // Define connection that included auth
+            var kintoneConnection = new kintoneJSSDK.Connection(kintoneAuth);
+
+            // Init app instance
+            var kintoneApp = new kintoneJSSDK.App(connection);
+
+            // Get General Setting
+            var app = {{app}};
+            var lang = {{lang}};
+            var isPreview = {{revision}};
+            kintoneApp.getGeneralSettings(app, lang, revision).then((rsp) => {
+                console.log(rsp);
+            }).catch((err) => {
+                // This SDK return err with KintoneAPIExeption
+                console.log(err.get());
+            });
+        `
     }
 ]
 export {authTemplate}
