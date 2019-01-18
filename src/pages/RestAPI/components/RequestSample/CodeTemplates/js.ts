@@ -178,11 +178,13 @@ let jsTemplate = [
         path: 'records.json',
         method: 'DELETE',
         transformer:{
-            revisionObj: ({ids, revisions}: any): object => {
+            revisionObj: (params: any): object => {
                 let returnData = {}
-                ids.forEach((recordID: any, index:number)=>{
-                    returnData[recordID] = revisions[index]
-                })
+                if (params && params.id) {
+                    params.ids.forEach((recordID: any, index:number)=>{
+                        returnData[recordID] = params.revisions[index]
+                    })
+                }
                 return returnData
             }
         },
