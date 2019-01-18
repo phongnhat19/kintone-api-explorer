@@ -386,7 +386,7 @@ let jsTemplate = [
             var kintoneApp = new kintoneJSSDK.App(connection);
 
             // Add Preview App
-            var name = {{name}};
+            var name = '{{name}}';
             var space = {{space}};
             var thread = {{thread}};
             kintoneApp.addPreviewApp(name, space, thread).then((rsp) => {
