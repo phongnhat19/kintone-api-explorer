@@ -54,10 +54,10 @@ class JSSDKRequest extends React.Component<APIRequestProps,any> {
         })
         if (transformer) {
             Object.keys(transformer).forEach((key: string)=>{
-                if (request['method']==='GET') {
+                if (request['method']==='GET' && request['params']) {
                     request['params'][key] = transformer[key](request['params'])
                 }
-                else {
+                else if (request['data']) {
                     request['data'][key] = transformer[key](request['data'])
                 }
             })
