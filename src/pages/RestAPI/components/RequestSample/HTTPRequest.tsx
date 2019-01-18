@@ -52,6 +52,12 @@ class HTTPRequest extends React.Component<APIRequestProps,any> {
             case 'POST':
                 requestSample = this.renderPostRequestTemplate(request)
                 break
+            case 'PUT':
+                requestSample = this.renderPuttRequestTemplate(request)
+                break
+            case 'DELETE':
+                requestSample = this.renderDeleteRequestTemplate(request)
+                break   
         }
         return requestSample
     }
@@ -64,6 +70,26 @@ class HTTPRequest extends React.Component<APIRequestProps,any> {
         return requestSample
     }
     renderPostRequestTemplate = (request: object): string => {
+        const methodRequest = request['method']
+        const body = request['data'] || {}
+        let headers = request['headers']
+        headers["Content-Type"] = "application/json"
+        const headerStr = this.buildHeaderHTTPRequest(headers)
+        let requestSample = `${methodRequest} /k/v1/${request['path']}\nHost: https://${request['domain']}\n${headerStr}\n${this.buildPOSTRequestParam(body)}`
+        return requestSample
+    }
+
+    renderPuttRequestTemplate = (request: object): string => {
+        const methodRequest = request['method']
+        const body = request['data'] || {}
+        let headers = request['headers']
+        headers["Content-Type"] = "application/json"
+        const headerStr = this.buildHeaderHTTPRequest(headers)
+        let requestSample = `${methodRequest} /k/v1/${request['path']}\nHost: https://${request['domain']}\n${headerStr}\n${this.buildPOSTRequestParam(body)}`
+        return requestSample
+    }
+
+    renderDeleteRequestTemplate = (request: object): string => {
         const methodRequest = request['method']
         const body = request['data'] || {}
         let headers = request['headers']
